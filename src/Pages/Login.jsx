@@ -3,14 +3,12 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { localTokenKey, reqTokenHederKey } from "../constants";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
 
   async function handleLogin(e) {
     e.preventDefault();
