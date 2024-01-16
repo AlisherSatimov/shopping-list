@@ -29,7 +29,6 @@ const Login = () => {
       localStorage.setItem(localTokenKey, token);
       toast("Logged in successfully", { type: "success" });
       axios.defaults.headers.common[reqTokenHederKey] = token;
-      navigate("/login");
     } catch (error) {
       toast("Username or password is incorrect", { type: "error" });
       console.log(error);
