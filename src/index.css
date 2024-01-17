@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.showcase {
+  height: 250px;
+  margin: 20px 20px 0;
+}
+
+.showcase-wrapper {
+  box-sizing: border-box;
+  width: 80%;
+  height: 100vh;
+  background-image: url(./assets/apple.jpg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 0 !important;
+}
+
+.sidebar-wrapper {
+  width: 20%;
+}
+
+.user-avatar {
+  width: 150px;
+  height: 150px;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
