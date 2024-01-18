@@ -6,6 +6,9 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import store from "./Store";
 
+// Constants
+import { localTokenKey, reqTokenHederKey } from "./constants";
+
 // Router
 import { BrowserRouter } from "react-router-dom";
 
@@ -13,9 +16,6 @@ import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./index.css";
-
-// Constants
-import { localTokenKey, reqTokenHederKey } from "./constants";
 
 // Toastify
 import { ToastContainer } from "react-toastify";

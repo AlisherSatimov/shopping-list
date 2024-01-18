@@ -2,30 +2,47 @@
   box-sizing: border-box;
 }
 
+.main-content {
+  display: flex;
+}
+
+#main-layout {
+  background: url(./assets/apple.jpg) center / cover no-repeat fixed;
+}
+
 .wrapper {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
+.showcase-wrapper {
+  width: 100%;
+  height: calc(100vh - 64px);
+}
+
 .showcase {
+  width: 95%;
   height: 250px;
   margin: 20px 20px 0;
 }
 
-.showcase-wrapper {
-  box-sizing: border-box;
-  width: 80%;
-  height: 100vh;
-  background-image: url(./assets/apple.jpg);
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  border-radius: 0 !important;
+.memberItems {
+  width: 1100px;
+  margin: 0 auto;
 }
 
 .sidebar-wrapper {
   width: 20%;
+  height: calc(100vh - 64px);
+}
+
+.navigation-link:hover {
+  text-indent: 1rem;
+}
+
+.navigation-link {
+  transition: all 0.3s ease-in-out;
 }
 
 .user-avatar {

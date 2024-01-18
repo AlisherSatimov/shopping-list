@@ -1,9 +1,7 @@
 import Dropdown from "react-bootstrap/Dropdown";
 
 const Header = () => {
-  // const { data: users, isLoading } = useFetch("/auth");
-  // console.log(users);
-  const handleLogOut = () => {
+  const logOut = () => {
     localStorage.removeItem("token");
     toast("Logged out successfully", { type: "success" });
   };
@@ -49,9 +47,8 @@ const Header = () => {
               <Dropdown.Toggle variant="white" id="dropdown-basic">
                 <i className="fa-solid fa-cog"></i>
               </Dropdown.Toggle>
-
               <Dropdown.Menu>
-                <Dropdown.Item onClick={handleLogOut} href="/login">
+                <Dropdown.Item onClick={logOut} href="/login">
                   Log Out
                 </Dropdown.Item>
               </Dropdown.Menu>

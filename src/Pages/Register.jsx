@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { localTokenKey, reqTokenHederKey } from "../constants";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -11,9 +11,10 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // const navigate = useNavigate();
+  const token = localStorage.getItem(localTokenKey);
+  if (token) return <Navigate to="/home" />;
 
-  async function handleRegister(e) {
+  async function registerAcc(e) {
     e.preventDefault();
     if (!name) return toast("Name is required!", { type: "error" });
     if (!username) return toast("Username is required!", { type: "error" });
@@ -40,9 +41,6 @@ const Register = () => {
     }
   }
 
-  const token = localStorage.getItem(localTokenKey);
-  if (token) return <Navigate to="/home" />;
-
   return (
     <section className="bg-secondary vh-100 d-flex align-items-center">
       <div className="container">
@@ -54,7 +52,7 @@ const Register = () => {
           </div>
           <div className="col-md-6 p-5">
             <h2 className="text-primary text-center">Sign In</h2>
-            <form className="d-grid gap-3 my-3" onSubmit={handleRegister}>
+            <form className="d-grid gap-3 my-3" onSubmit={registerAcc}>
               <div>
                 <label htmlFor="name" className="form-label">
                   Name
