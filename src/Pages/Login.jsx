@@ -3,11 +3,12 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { localTokenKey, reqTokenHederKey } from "../constants";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const token = localStorage.getItem(localTokenKey);
   if (token) return <Navigate to="/home" />;
+  const navigate = useNavigate();
 
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +31,7 @@ const Login = () => {
       localStorage.setItem(localTokenKey, token);
       toast("Logged in successfully", { type: "success" });
       axios.defaults.headers.common[reqTokenHederKey] = token;
+      navigate("/");
     } catch (error) {
       toast("Username or password is incorrect", { type: "error" });
       console.log(error);
