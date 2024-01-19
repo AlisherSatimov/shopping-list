@@ -25,7 +25,7 @@ const Home = () => {
     }
   };
 
-  const handleDelete = async () => {
+  const deleteUser = async () => {
     try {
       await axios.delete("/users", {
         headers: {
@@ -35,8 +35,9 @@ const Home = () => {
       toast("User Delete Successfuly", { type: "success" });
       localStorage.removeItem("token");
       navigate("/login");
-    } catch (error) {
+    } catch (err) {
       toast(err.request), { type: "error" };
+      console.log(err);
     }
   };
 
@@ -53,7 +54,7 @@ const Home = () => {
                 <button className="btn btn-primary" onClick={copyName}>
                   <i className="fa-solid fa-copy"></i> Copy Username
                 </button>
-                <button className="btn btn-danger" onClick={handleDelete}>
+                <button className="btn btn-danger" onClick={deleteUser}>
                   <i className="fa-solid fa-trash"></i> Delete Account
                 </button>
               </div>

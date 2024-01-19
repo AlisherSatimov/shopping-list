@@ -1,9 +1,9 @@
+import { localTokenKey } from "../constants";
 import { useParams } from "react-router-dom";
 import useFetch from "../Hooks/useFetch";
-import { localTokenKey } from "../constants";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import axios from "axios";
 
 const ItemsList = () => {
   const { data: groups } = useFetch("/groups");
@@ -29,33 +29,63 @@ const ItemsList = () => {
 
     try {
       await axios.post("/items", { title, groupId });
-      toast("Item is created successfully!", { type: "success" });
     } catch (error) {
       toast(error.request, { type: "error" });
+    } finally {
+      toast("Item is created successfully!", { type: "success" });
+
+      setTimeout(() => {
+        location.reload();
+      }, 2_000);
     }
   };
 
   const boughtItem = async (itemId) => {
-    await axios.post(`/items/${itemId}/mark-as-bought`, {
-      Authorization: `Bearer ${localTokenKey}`,
-    });
-    toast("Item is marked as bought successfully!", { type: "success" });
+    try {
+      await axios.post(`/items/${itemId}/mark-as-bought`, {
+        Authorization: `Bearer ${localTokenKey}`,
+      });
+    } catch (error) {
+      toast(error.request, { type: "error" });
+    } finally {
+      toast("Item is marked as bought successfully!", { type: "success" });
+
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
+    }
   };
 
   const unBoughtItem = async (itemId) => {
-    await axios.delete(`/items/${itemId}/mark-as-bought`, {
-      Authorization: `Bearer ${localTokenKey}`,
-    });
-    toast("Item is marked as not bought successfully!", { type: "success" });
+    try {
+      await axios.delete(`/items/${itemId}/mark-as-bought`, {
+        Authorization: `Bearer ${localTokenKey}`,
+      });
+    } catch (error) {
+      toast(error.request, { type: "error" });
+    } finally {
+      toast("Item is marked as not bought successfully!", { type: "success" });
+
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
+    }
   };
 
   const deleteItem = async (itemId) => {
-    await axios.delete(`/items/${itemId}`, {
-      Authorization: `Bearer ${localTokenKey}`,
-    });
-    toast("Item is deleted successfully!", {
-      type: "success",
-    });
+    try {
+      await axios.delete(`/items/${itemId}`, {
+        Authorization: `Bearer ${localTokenKey}`,
+      });
+    } catch (error) {
+      toast(error.request, { type: "error" });
+    } finally {
+      toast("Item is deleted successfully!", { type: "success" });
+
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
+    }
   };
 
   return (

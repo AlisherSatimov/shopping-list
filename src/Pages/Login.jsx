@@ -6,11 +6,14 @@ import { localTokenKey, reqTokenHederKey } from "../constants";
 import { Link, Navigate } from "react-router-dom";
 
 const Login = () => {
+  const token = localStorage.getItem(localTokenKey);
+  if (token) return <Navigate to="/home" />;
+
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleLogin(e) {
+  async function loginUser(e) {
     e.preventDefault();
     if (!username) return toast("Username is required!", { type: "error" });
     if (!password) return toast("Password is required!", { type: "error" });
@@ -35,9 +38,6 @@ const Login = () => {
     }
   }
 
-  const token = localStorage.getItem(localTokenKey);
-  if (token) return <Navigate to="/home" />;
-
   return (
     <section className="bg-secondary vh-100 d-flex align-items-center">
       <div className="container">
@@ -49,7 +49,7 @@ const Login = () => {
           </div>
           <div className="col-md-6 p-5">
             <h2 className="text-primary text-center">Sign In</h2>
-            <form className="d-grid gap-3 my-3" onSubmit={handleLogin}>
+            <form className="d-grid gap-3 my-3" onSubmit={loginUser}>
               <div>
                 <label htmlFor="username" className="form-label">
                   Username

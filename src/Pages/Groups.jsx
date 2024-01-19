@@ -16,6 +16,38 @@ const Groups = () => {
 
   const navigate = useNavigate();
 
+  const deleteGroup = async (groupId) => {
+    try {
+      await axios.delete(`/groups/${groupId}`, {
+        Authorization: `Bearer ${localTokenKey}`,
+      });
+      navigate(`/home`);
+      toast("Group deleted successfully!", {
+        type: "success",
+      });
+    } catch (error) {
+      toast(error.request, {
+        type: "error",
+      });
+      console.log(error);
+    }
+  };
+
+  const leaveGroup = async (groupId) => {
+    try {
+      await axios.post(`/groups/${groupId}/leave`, {
+        Authorization: `Bearer ${localTokenKey}`,
+      });
+      navigate(`/home`);
+      toast("Left from group successfully!", { type: "success" });
+    } catch (error) {
+      toast(error.request, {
+        type: "error",
+      });
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -65,45 +97,8 @@ const Groups = () => {
                                 className="btn btn-light w-100 text-start"
                                 onClick={
                                   group.owner._id === currentUser._id
-                                    ? async () => {
-                                        try {
-                                          await axios.delete(
-                                            `/groups/${groupId}`,
-                                            {
-                                              Authorization: `Bearer ${localTokenKey}`,
-                                            }
-                                          );
-                                          navigate(`/home`);
-                                          toast("Group deleted successfully!", {
-                                            type: "success",
-                                          });
-                                        } catch (error) {
-                                          toast(error.request, {
-                                            type: "error",
-                                          });
-                                          console.log(error);
-                                        }
-                                      }
-                                    : async () => {
-                                        try {
-                                          await axios.post(
-                                            `/groups/${groupId}/leave`,
-                                            {
-                                              Authorization: `Bearer ${localTokenKey}`,
-                                            }
-                                          );
-                                          navigate(`/home`);
-                                          toast(
-                                            "Left from group successfully!",
-                                            { type: "success" }
-                                          );
-                                        } catch (error) {
-                                          toast(error.request, {
-                                            type: "error",
-                                          });
-                                          console.log(error);
-                                        }
-                                      }
+                                    ? () => deleteGroup(groupId)
+                                    : () => leaveGroup(groupId)
                                 }
                               >
                                 {group.owner._id == currentUser._id

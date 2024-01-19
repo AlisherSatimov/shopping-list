@@ -1,6 +1,5 @@
 import { Button, OverlayTrigger, Popover, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { reqTokenHederKey } from "../constants";
 import useFetch from "../Hooks/useFetch";
 import { toast } from "react-toastify";
 import { useState } from "react";
@@ -8,13 +7,10 @@ import axios from "axios";
 
 const Sidebar = () => {
   const { data: groups, isLoading } = useFetch("/groups");
-
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
-
   const [showMoreGoup, setShowMoreGoup] = useState(false);
 
   const handleShowGroup = () => {
@@ -31,15 +27,12 @@ const Sidebar = () => {
       });
     setLoading(true);
     try {
-      let {
-        data: { token },
-      } = await axios.post("/groups", { name, password }).then((res) => {
+      await axios.post("/groups", { name, password }).then((res) => {
         const groupId = res.data.group._id;
         navigate(`/home/groups/${groupId}`);
       });
 
       toast("Group created successfully", { type: "success" });
-      axios.defaults.headers.common[reqTokenHederKey] = token;
     } catch (error) {
       toast(error.request, {
         type: "error",
@@ -136,14 +129,14 @@ const Sidebar = () => {
                       </button>
                     </OverlayTrigger>
                   </li>
-                  {groups.map((group) => {
+                  {groups.map((currentGroup) => {
                     return (
-                      <li key={group._id}>
+                      <li key={currentGroup._id}>
                         <Link
-                          className="navigation-link text-decoration-none w-100 text-dark btn btn-light  text-start"
-                          to={`/home/groups/${group._id}`}
+                          className="navigation-link text-decoration-none w-100 text-dark btn btn-light text-start"
+                          to={`/home/groups/${currentGroup._id}`}
                         >
-                          {group.name}
+                          {currentGroup.name}
                         </Link>
                       </li>
                     );

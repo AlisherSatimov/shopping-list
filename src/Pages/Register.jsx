@@ -1,18 +1,18 @@
-import { Spinner } from "react-bootstrap";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import axios from "axios";
 import { localTokenKey, reqTokenHederKey } from "../constants";
 import { Link, Navigate } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import axios from "axios";
 
 const Register = () => {
+  const token = localStorage.getItem(localTokenKey);
+  if (token) return <Navigate to="/home" />;
+
   const [name, setName] = useState("");
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const token = localStorage.getItem(localTokenKey);
-  if (token) return <Navigate to="/home" />;
 
   async function registerAcc(e) {
     e.preventDefault();

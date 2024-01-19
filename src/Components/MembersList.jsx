@@ -1,23 +1,30 @@
 import { useParams } from "react-router-dom";
 import { localTokenKey } from "../constants";
 import useFetch from "../Hooks/useFetch";
-import axios from "axios";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const MembersList = () => {
-  const { data: groups, isLoading } = useFetch("/groups");
+  const { data: groups } = useFetch("/groups");
 
   const { groupId } = useParams();
 
   const { data: currentUser } = useFetch("/auth");
 
   const deleteMember = async (memberId) => {
-    await axios.delete(`/groups/${groupId}/members/${memberId}`, {
-      Authorization: `Bearer ${localTokenKey}`,
-    });
-    toast("Removed from group successfully!", {
-      type: "success",
-    });
+    try {
+      await axios.delete(`/groups/${groupId}/members/${memberId}`, {
+        Authorization: `Bearer ${localTokenKey}`,
+      });
+    } catch (error) {
+      toast(error.request, { type: "error" });
+    } finally {
+      toast("Removed from group successfully!", { type: "success" });
+
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
+    }
   };
 
   return (
@@ -57,7 +64,8 @@ const MembersList = () => {
                                   <br />
                                 </div>
                               </div>
-                              {group.owner._id === currentUser._id &&
+                              {currentUser &&
+                              group.owner._id === currentUser._id &&
                               member._id !== currentUser._id ? (
                                 <div
                                   className="d-flex gap-1"
