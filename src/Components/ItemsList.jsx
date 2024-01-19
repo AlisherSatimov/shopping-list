@@ -174,7 +174,8 @@ const ItemsList = () => {
                                     }
                                   ></i>
                                 </button>
-                                {item.owner._id === currentUser._id ? (
+                                {item.owner._id === currentUser._id ||
+                                group.owner._id === currentUser._id ? (
                                   <button
                                     className="btn btn-danger"
                                     onClick={() => deleteItem(item._id)}
